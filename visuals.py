@@ -135,10 +135,9 @@ def feature_plot(importances, X_train, y_train):
     columns = X_train.columns.values[indices[:5]]
     values = importances[indices][:5]
 
-    # Creat the plot
+    # Create the plot
     fig = plt.figure(figsize=(18, 5))
-    plt.title(
-        "Normalized Weights for First Five Most Predictive Features", fontsize=16)
+    plt.title("Normalized Weights for First Five Most Predictive Features", fontsize=16)
     plt.bar(np.arange(5), values, width=0.2, align="center", color='#00A000',
             label="Feature Weight")
     plt.bar(np.arange(5) - 0.3, np.cumsum(values), width=0.2, align="center", color='#00A0A0',
@@ -154,42 +153,91 @@ def feature_plot(importances, X_train, y_train):
 
 
 def visualize_crosstabs(df: pd.DataFrame, categorical_features: list, target: str):
+    """
+    Visualize the crosstab of the target variable and the categorical features.
+
+    Args:
+        df (pd.DataFrame): input dataframe
+        categorical_features (list): list of categorical features
+        target (str): target variable
+    """
     import matplotlib.pyplot as plt
     import math
 
     columns_per_row = 3
     plot_rows = math.ceil(len(categorical_features) / columns_per_row)
 
-    fig, axes = plt.subplots(plot_rows, columns_per_row, figsize=(
-        15, plot_rows*4), constrained_layout=True)
+    fig, axes = plt.subplots(plot_rows,
+                             columns_per_row,
+                             figsize=(15, plot_rows * 4),
+                             constrained_layout=True)
     # Create crosstabs to show distribution the values of each categorical against income
     i = j = 0
     for feat in categorical_features:
         table = pd.crosstab(df[feat], df[target])
-        table.div(table.sum(1).astype(float), axis=0).plot(
-            kind='bar', ax=axes[j], stacked=True)
+        table.div(table.sum(1).astype(float), axis=0).plot(kind='bar',
+                                                           ax=axes[j],
+                                                           stacked=True)
         j += 1
         if j == columns_per_row:
             j = 0
             i += 1
 
 
-def visualize_numerical_feature(df: pd.DataFrame, numerical_features: list, target: str):
-    columns_per_row = 2
+def visualize_numerical_features(df: pd.DataFrame, numerical_features: list, target: str = None, kind: str = 'hist'):
+    """
+    Visualize the distribution of numerical features.
+    
+    Args:
+        df (pd.DataFrame): The dataframe containing the data.
+        numerical_features (list): The list of numerical features to visualize.
+        criteria (str): The target column. Assumes categorical and binary target.
+        kind: The type of plot to use.
+    Returns: None
+    """
+    if target != None:
+        columns_per_row = 2
+    else:
+        columns_per_row = 1
     plot_rows = len(numerical_features)
 
-    fig, axes = plt.subplots(plot_rows, columns_per_row, figsize=(
-        8, plot_rows*3), constrained_layout=False, sharey=True)
+    if kind == 'hist':
+        sharey = True
+    elif kind == 'box':
+        sharey = False
+    else:
+        raise ValueError('kind must be either hist or box')
+
+    fig, axes = plt.subplots(plot_rows,
+                             columns_per_row,
+                             figsize=(8, plot_rows * 3),
+                             constrained_layout=False,
+                             sharey=sharey)
 
     plt.subplots_adjust(hspace=0.5)
 
     # Create crosstabs to show distribution the values of each categorical against income
-    i = 0
-    for feat in numerical_features:
-        j = 0
+    col = 0
+    if target != None:
         for target_val in df[target].unique():
-            df.query(f"{target} == {target_val}")[
-                feat].plot(kind='hist', ax=axes[i, j])
-            plt.setp(axes[i, j], xlabel=f"{feat} for {target} == {target_val}")
-            j += 1
-        i += 1
+            row = 0
+            query_df = df.query(f"{target} == {target_val}")
+            for feat in numerical_features:
+                if kind == 'hist':
+                    query_df[feat].plot(kind=kind, ax=axes[row, col])
+                elif kind:
+                    query_df[feat].plot(kind=kind, ax=axes[row, col], vert=False)
+                plt.setp(axes[row, col], xlabel=f"{feat} for {target} == {target_val}")
+                row += 1
+                
+            col += 1
+    else:
+        row = 0
+        query_df = df
+        for feat in numerical_features:
+            if kind == 'hist':
+                query_df[feat].plot(kind=kind, ax=axes[row])
+            elif kind:
+                query_df[feat].plot(kind=kind, ax=axes[row], vert=False)
+            plt.setp(axes[row], xlabel=f"{feat}")
+            row += 1
