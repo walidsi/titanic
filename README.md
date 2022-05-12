@@ -24,12 +24,14 @@ You will also need to have software installed to run and execute an [iPython Not
 
 ### Data
 
-The titanic  dataset consists of approximately XXX data points, with each datapoint having yy features. 
+The titanic  dataset consists of approximately 891 data points, with each datapoint having 11 features. 
 
 **Features**
+- `passenger_Id`: counter
+- `name`: name of passenger
 - `age`: Age
 - `sex`: Sex (Female, Male)
-- `pclass`:	Ticket class	1 = 1st, 2 = 2nd, 3 = 3rd
+- `Pclass`:	Ticket class	1 = 1st, 2 = 2nd, 3 = 3rd
 - `sibsp`:	# of siblings / spouses aboard the Titanic	
 - `parch`:	# of parents / children aboard the Titanic	
 - `ticket`:	Ticket number	
