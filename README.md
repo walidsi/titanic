@@ -29,6 +29,13 @@ The titanic  dataset consists of approximately XXX data points, with each datapo
 **Features**
 - `age`: Age
 - `sex`: Sex (Female, Male)
+- `pclass`:	Ticket class	1 = 1st, 2 = 2nd, 3 = 3rd
+- `sibsp`:	# of siblings / spouses aboard the Titanic	
+- `parch`:	# of parents / children aboard the Titanic	
+- `ticket`:	Ticket number	
+- `fare`:	Passenger fare	
+- `cabin`:	Cabin number	
+- `embarked`:	Port of Embarkation	C = Cherbourg, Q = Queenstown, S = Southampton
 
 **Target Variable**
 - `Survived`: (1, 0)
