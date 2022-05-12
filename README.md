@@ -22,7 +22,7 @@ You will also need to have software installed to run and execute an [iPython Not
 
 # Run
 
-#Data
+# Data
 
 The titanic  dataset consists of approximately XXX data points, with each datapoint having yy features. 
 
