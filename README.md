@@ -22,6 +22,18 @@ You will also need to have software installed to run and execute an [iPython Not
 
 ### Run
 
+In a terminal or command window, navigate to the top-level project directory (that contains this README) and run one of the following commands:
+
+```bash
+ipython notebook titanic.ipynb
+```  
+or
+```bash
+jupyter notebook titanic.ipynb
+```
+
+This will open the iPython Notebook software and project file in your browser.
+
 ### Data
 
 The titanic  dataset consists of approximately 891 data points, with each datapoint having 11 features. 
