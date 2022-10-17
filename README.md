@@ -1,4 +1,14 @@
-## Titanic Dataset Analysis
+# titanic
+
+![Contributors](https://img.shields.io/github/contributors/walidsi/titanic?style=plastic)
+![Forks](https://img.shields.io/github/forks/walidsi/titanic)
+![Downloads](https://img.shields.io/github/downloads/walidsi/titanic/total)
+![Stars](https://img.shields.io/github/stars/walidsi/titanic)
+![Licence](https://img.shields.io/github/license/walidsi/titanic)
+![Issues](https://img.shields.io/github/issues/walidsi/titanic)
+
+### Goal
+The goal of the project is to predict whether a passenger of the Titanic survived the shipwreck.
 
 ### Install
 
